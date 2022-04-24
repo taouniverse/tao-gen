@@ -14,7 +14,7 @@
 
 package main
 
-import "github.com/taouniverse/tao-gen/cmd"
+import "github.com/taouniverse/gen/cmd"
 
 func main() {
 	cmd.Execute()

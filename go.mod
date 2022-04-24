@@ -1,4 +1,4 @@
-module github.com/taouniverse/tao-gen
+module github.com/taouniverse/gen
 
 go 1.18
 

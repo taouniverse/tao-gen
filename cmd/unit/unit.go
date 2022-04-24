@@ -12,31 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cmd
+package unit
 
 import (
-	"github.com/taouniverse/tao-gen/cmd/version"
-	"os"
-
+	"fmt"
 	"github.com/spf13/cobra"
 )
 
-var Cmd = &cobra.Command{
-	Use:   "tao-gen",
-	Short: "Generator of tao",
-	Long:  `A util to generate the universe of tao!`,
-}
+var (
+	module string
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	err := Cmd.Execute()
-	if err != nil {
-		os.Exit(1)
+	Cmd = &cobra.Command{
+		Use:   "unit",
+		Short: "Generate unit for tao",
+		Long:  `Generate unit for tao, e.g. https://github.com/taouniverse/tao-hello`,
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Printf("unit info, module: '%s'\n", module)
+		},
 	}
-}
+)
 
 func init() {
-	// version
-	Cmd.AddCommand(version.Cmd)
+	// Persistence Flags
+	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/tao-hello", "target module name")
 }
