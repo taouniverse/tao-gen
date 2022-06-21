@@ -76,10 +76,10 @@ func importFunc(s string) (r string) {
 }
 
 func requireFunc(s string) (r string) {
-	imports := strings.Split(s, Split)
-	for i := 0; i < len(imports); i++ {
-		r += fmt.Sprintf("%s latest", imports[i])
-		if i != len(imports)-1 {
+	requires := strings.Split(s, Split)
+	for i := 0; i < len(requires); i++ {
+		r += fmt.Sprintf("%s latest", requires[i])
+		if i != len(requires)-1 {
 			r += "\n\t"
 		}
 	}
