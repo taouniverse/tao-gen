@@ -15,26 +15,50 @@
 package project
 
 import (
-	"fmt"
 	"github.com/spf13/cobra"
+	"github.com/taouniverse/gen/cmd/project/tpl"
+	"github.com/taouniverse/gen/cmd/utils"
+	"github.com/taouniverse/tao"
 )
 
 var (
-	author string
-	module string
+	author  string
+	name    string
+	module  string
+	require string
+	dir     string
 
 	Cmd = &cobra.Command{
 		Use:   "project",
 		Short: "Generate project based on tao universe",
 		Long:  `Generate project based on tao universe, e.g. https://github.com/taouniverse/hello`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Printf("project info, author: '%s', module: '%s'\n", author, module)
+			path, err := utils.CheckDir(dir, name)
+			if err != nil {
+				tao.Panic(err)
+			}
+			templates := map[string]string{
+				path + "main.go": tpl.Main,
+				path + "go.mod":  tpl.Mod,
+			}
+			params := map[string]string{
+				"Author":  author,
+				"Module":  module,
+				"Require": require,
+			}
+			err = utils.ExecuteTemplate(templates, params)
+			if err != nil {
+				tao.Panic(err)
+			}
 		},
 	}
 )
 
 func init() {
 	// Persistence Flags
-	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/tao-hello", "target module name")
+	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/hello", "target module name")
+	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "github.com/taouniverse/tao-hello", "require modules, split by "+utils.Split)
+	Cmd.PersistentFlags().StringVarP(&dir, "dir", "d", ".", "project's parent path")
+	Cmd.PersistentFlags().StringVarP(&name, "name", "n", "hello", "name of the target project")
 	Cmd.PersistentFlags().StringVarP(&author, "author", "a", "huija", "author of the target project")
 }

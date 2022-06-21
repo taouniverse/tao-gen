@@ -19,11 +19,12 @@ import (
 	"github.com/taouniverse/gen/cmd/project"
 	"github.com/taouniverse/gen/cmd/unit"
 	"github.com/taouniverse/gen/cmd/version"
+	"github.com/taouniverse/tao"
 	"os"
 )
 
 var Cmd = &cobra.Command{
-	Use:   "tao-gen",
+	Use:   "gen",
 	Short: "Generator of tao",
 	Long:  `A util to generate the universe of tao!`,
 }
@@ -31,7 +32,12 @@ var Cmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	err := Cmd.Execute()
+	err := tao.DevelopMode()
+	if err != nil {
+		os.Exit(1)
+	}
+
+	err = Cmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}

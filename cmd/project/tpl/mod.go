@@ -12,21 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package version
+package tpl
 
-import (
-	"github.com/spf13/cobra"
-	"github.com/taouniverse/tao"
+const Mod = `
+module {{ .Module }}
+
+go 1.17
+
+require (
+	github.com/taouniverse/tao latest
+	{{.Require | require}}
 )
-
-const version = "v0.0.1"
-
-// Cmd represents the version command
-var Cmd = &cobra.Command{
-	Use:   "version",
-	Short: "Prints version of tao's gen",
-	Long:  `Prints version of current tao generator`,
-	Run: func(cmd *cobra.Command, args []string) {
-		tao.Info("tao generator version:", version)
-	},
-}
+`
