@@ -15,7 +15,7 @@
 package tpl
 
 import (
-	"github.com/taouniverse/gen/cmd/utils"
+	"github.com/taouniverse/gen/utils"
 )
 
 // Config config.go
