@@ -12,26 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package tpl
-
-// Main main.go
-const Main = `
-package main
+package utils
 
 import (
-	"github.com/taouniverse/tao"
-	{{ .Require | import }}
+	"github.com/stretchr/testify/assert"
+	"strings"
+	"testing"
 )
 
-func main() {
-	// Hi {{ .Author }}!
-	err := tao.DevelopMode()
-	if err != nil {
-		panic(err)
-	}
+func TestTemplate(t *testing.T) {
+	r, err := packageFunc("github.com/tao/tao-hello")
+	assert.Nil(t, err)
+	assert.Equal(t, r, "hello")
 
-	err = tao.Run(nil, nil)
-	if err != nil {
-		tao.Error(err)
-	}
-}`
+	r, err = firstFunc(r)
+	assert.Nil(t, err)
+	assert.Equal(t, r, "h")
+
+	assert.Equal(t, strings.Title("hello"), "Hello")
+	assert.Equal(t, requireFunc(""), "")
+}

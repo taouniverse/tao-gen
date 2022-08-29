@@ -56,7 +56,7 @@ var (
 
 func init() {
 	// Persistence Flags
-	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/hello", "target module name")
+	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/hello", "target module name of project")
 	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "github.com/taouniverse/tao-hello", "require modules, split by "+utils.Split)
 	Cmd.PersistentFlags().StringVarP(&dir, "dir", "d", ".", "project's parent path")
 	Cmd.PersistentFlags().StringVarP(&name, "name", "n", "hello", "name of the target project")

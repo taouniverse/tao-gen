@@ -14,6 +14,7 @@
 
 package tpl
 
+// Mod go.mod
 const Mod = `
 module {{ .Module }}
 
@@ -21,6 +22,6 @@ go 1.17
 
 require (
 	github.com/taouniverse/tao latest
-	{{.Require | require}}
+	{{ .Require | require }}
 )
 `

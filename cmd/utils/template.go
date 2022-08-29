@@ -16,6 +16,7 @@ package utils
 
 import (
 	"fmt"
+	"github.com/taouniverse/tao"
 	"os"
 	"strings"
 	"text/template"
@@ -40,6 +41,9 @@ func CheckDir(dir, name string) (path string, err error) {
 // Split of array string
 const Split = ","
 
+// BackQuote in template
+const BackQuote = "`"
+
 // ExecuteTemplate to gen files
 func ExecuteTemplate(templates, params map[string]string) error {
 	for f, m := range templates {
@@ -62,6 +66,10 @@ func ExecuteTemplate(templates, params map[string]string) error {
 var templateFuncMap = template.FuncMap{
 	"import":  importFunc,
 	"require": requireFunc,
+	"package": packageFunc,
+	"first":   firstFunc,
+	"upper":   strings.ToUpper,
+	"title":   strings.Title,
 }
 
 func importFunc(s string) (r string) {
@@ -76,6 +84,9 @@ func importFunc(s string) (r string) {
 }
 
 func requireFunc(s string) (r string) {
+	if s == "" {
+		return
+	}
 	requires := strings.Split(s, Split)
 	for i := 0; i < len(requires); i++ {
 		r += fmt.Sprintf("%s latest", requires[i])
@@ -84,4 +95,19 @@ func requireFunc(s string) (r string) {
 		}
 	}
 	return
+}
+
+func packageFunc(s string) (r string, err error) {
+	if len(s) == 0 {
+		return "", tao.NewError(tao.ParamInvalid, "empty string")
+	}
+	split := strings.Split(s, "/")
+	return strings.TrimPrefix(split[len(split)-1], "tao-"), nil
+}
+
+func firstFunc(s string) (r string, err error) {
+	if len(s) == 0 {
+		return "", tao.NewError(tao.ParamInvalid, "empty string")
+	}
+	return s[0:1], nil
 }

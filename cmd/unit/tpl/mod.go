@@ -14,24 +14,15 @@
 
 package tpl
 
-// Main main.go
-const Main = `
-package main
+// Mod go.mod
+const Mod = `
+module {{ .Module }}
 
-import (
-	"github.com/taouniverse/tao"
-	{{ .Require | import }}
+go 1.17
+
+require (
+	github.com/stretchr/testify latest
+	github.com/taouniverse/tao latest
+	{{ .Require | require }}
 )
-
-func main() {
-	// Hi {{ .Author }}!
-	err := tao.DevelopMode()
-	if err != nil {
-		panic(err)
-	}
-
-	err = tao.Run(nil, nil)
-	if err != nil {
-		tao.Error(err)
-	}
-}`
+`
