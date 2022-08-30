@@ -16,9 +16,9 @@ package project
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/taouniverse/gen/cmd/project/tpl"
-	"github.com/taouniverse/gen/utils"
 	"github.com/taouniverse/tao"
+	"github.com/taouniverse/taogo/cmd/project/tpl"
+	"github.com/taouniverse/taogo/utils"
 )
 
 var (

@@ -16,10 +16,10 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/taouniverse/gen/cmd/project"
-	"github.com/taouniverse/gen/cmd/unit"
-	"github.com/taouniverse/gen/cmd/version"
 	"github.com/taouniverse/tao"
+	"github.com/taouniverse/taogo/cmd/project"
+	"github.com/taouniverse/taogo/cmd/unit"
+	"github.com/taouniverse/taogo/cmd/version"
 	"os"
 )
 
