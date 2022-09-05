@@ -50,6 +50,11 @@ var (
 			if err != nil {
 				tao.Panic(err)
 			}
+			output, err := utils.ModTidy(path)
+			tao.Debugf("%s", string(output))
+			if err != nil {
+				tao.Panic(err)
+			}
 		},
 	}
 )

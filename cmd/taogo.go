@@ -24,7 +24,7 @@ import (
 )
 
 var Cmd = &cobra.Command{
-	Use:   "gen",
+	Use:   "taogo",
 	Short: "Generator of tao",
 	Long:  `A util to generate the universe of tao!`,
 }
