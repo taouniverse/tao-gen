@@ -17,8 +17,11 @@ package project
 import (
 	"github.com/spf13/cobra"
 	"github.com/taouniverse/tao"
-	"github.com/taouniverse/taogo/cmd/project/tpl"
+	"github.com/taouniverse/taogo/tpl/license"
+	"github.com/taouniverse/taogo/tpl/project"
 	"github.com/taouniverse/taogo/utils"
+	"strconv"
+	"time"
 )
 
 var (
@@ -38,13 +41,15 @@ var (
 				tao.Panic(err)
 			}
 			templates := map[string]string{
-				path + "main.go": tpl.Main,
-				path + "go.mod":  tpl.Mod,
+				path + "main.go": license.Apache2FileHeaderTpl + project.Main,
+				path + "go.mod":  project.Mod,
+				path + "LICENSE": license.Apache2LicenseFileTpl,
 			}
 			params := map[string]string{
 				"Author":  author,
 				"Module":  module,
 				"Require": require,
+				"Year":    strconv.Itoa(time.Now().Year()),
 			}
 			err = utils.ExecuteTemplate(templates, params)
 			if err != nil {
@@ -63,7 +68,7 @@ func init() {
 	// Persistence Flags
 	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/hello", "target module name of project")
 	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "github.com/taouniverse/tao-hello", "require modules, split by "+utils.Split)
-	Cmd.PersistentFlags().StringVarP(&dir, "dir", "d", ".", "project's parent path")
+	Cmd.PersistentFlags().StringVarP(&dir, "dir", "d", "./", "project's parent path")
 	Cmd.PersistentFlags().StringVarP(&name, "name", "n", "hello", "name of the target project")
 	Cmd.PersistentFlags().StringVarP(&author, "author", "a", "huija", "author of the target project")
 }

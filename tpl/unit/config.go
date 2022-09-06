@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package tpl
+package unit
 
 import (
 	"github.com/taouniverse/taogo/utils"
@@ -25,6 +25,7 @@ package {{ .Module | package }}
 import (
 	"context"
 	"github.com/taouniverse/tao"
+	// TODO use the following modules to develop this unit
 	{{ .Require | import }}
 )
 
@@ -85,11 +86,12 @@ import (
 )
 
 func TestTao(t *testing.T) {
-	tao.DevelopMode()
+	err := tao.DevelopMode()
+	assert.Nil(t, err)
 
 	assert.Equal(t, {{ .Module | package | first | upper }}, default{{ .Module | package | title }})
 
-	err := tao.Run(nil, nil)
+	err = tao.Run(nil, nil)
 	assert.Nil(t, err)
 }
 `

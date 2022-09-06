@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package tpl
+package project
 
 // Main main.go
 const Main = `
@@ -20,6 +20,7 @@ package main
 
 import (
 	"github.com/taouniverse/tao"
+	// TODO enjoy using the following modules
 	{{ .Require | import }}
 )
 

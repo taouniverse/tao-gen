@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package tpl
+package unit
 
 // Mod go.mod
 const Mod = `
@@ -21,6 +21,7 @@ module {{ .Module }}
 go 1.17
 
 require (
+	github.com/stretchr/testify latest
 	github.com/taouniverse/tao latest
 	{{ .Require | require }}
 )

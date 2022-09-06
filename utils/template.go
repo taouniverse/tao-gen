@@ -24,11 +24,14 @@ import (
 
 // CheckDir before ExecuteTemplate
 func CheckDir(dir, name string) (path string, err error) {
+	if !strings.HasSuffix(dir, "/") {
+		dir += "/"
+	}
 	_, err = os.Stat(dir)
 	if err != nil {
 		return
 	}
-	path = dir + "/" + name + "/"
+	path = dir + name + "/"
 	_, err = os.Stat(path)
 	if err != nil {
 		// create the target dir
