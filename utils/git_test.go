@@ -20,7 +20,6 @@ import (
 )
 
 func TestInit(t *testing.T) {
-	init, err := Init("./")
+	err := Init("./")
 	assert.Nil(t, err)
-	t.Log(string(init))
 }

@@ -20,7 +20,6 @@ import (
 )
 
 func TestModTidy(t *testing.T) {
-	tidy, err := ModTidy("../")
+	err := ModTidy("../")
 	assert.Nil(t, err)
-	t.Log(string(tidy))
 }

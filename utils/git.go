@@ -15,12 +15,15 @@
 package utils
 
 import (
+	"os"
 	"os/exec"
 )
 
 // Init git init
-func Init(dir string) ([]byte, error) {
+func Init(dir string) error {
 	command := exec.Command("git", "init")
 	command.Dir = dir
-	return command.Output()
+	command.Stderr = os.Stderr
+	command.Stdout = os.Stdout
+	return command.Run()
 }

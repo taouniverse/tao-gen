@@ -14,11 +14,16 @@
 
 package utils
 
-import "os/exec"
+import (
+	"os"
+	"os/exec"
+)
 
 // ModTidy go mod tidy
-func ModTidy(dir string) ([]byte, error) {
+func ModTidy(dir string) error {
 	command := exec.Command("go", "mod", "tidy")
 	command.Dir = dir
-	return command.Output()
+	command.Stderr = os.Stderr
+	command.Stdout = os.Stdout
+	return command.Run()
 }

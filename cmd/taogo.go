@@ -20,7 +20,7 @@ import (
 	"github.com/taouniverse/taogo/cmd/project"
 	"github.com/taouniverse/taogo/cmd/unit"
 	"github.com/taouniverse/taogo/cmd/version"
-	"os"
+	"log"
 )
 
 var Cmd = &cobra.Command{
@@ -29,17 +29,29 @@ var Cmd = &cobra.Command{
 	Long:  `A util to generate the universe of tao!`,
 }
 
+var data = []byte(`
+{
+  "tao": {
+    "log": {
+      "level": "debug",
+      "type": "console"
+    },
+    "hide_banner": true
+  }
+}
+`)
+
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	err := tao.DevelopMode()
+	err := tao.SetConfigBytesAll(data, tao.JSON)
 	if err != nil {
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
 	err = Cmd.Execute()
 	if err != nil {
-		os.Exit(1)
+		tao.Fatal(err)
 	}
 }
 

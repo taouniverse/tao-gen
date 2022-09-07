@@ -52,8 +52,7 @@ func CheckDir(dir, name string) (path string, err error) {
 		}
 	}
 	// git init
-	output, err := Init(path)
-	tao.Debugf("%s", string(output))
+	err = Init(path)
 	return
 }
 

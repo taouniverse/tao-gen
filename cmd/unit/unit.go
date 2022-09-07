@@ -16,7 +16,6 @@ package unit
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/taouniverse/tao"
 	"github.com/taouniverse/taogo/tpl/license"
 	"github.com/taouniverse/taogo/tpl/unit"
 	"github.com/taouniverse/taogo/utils"
@@ -37,10 +36,10 @@ var (
 		Use:   "unit",
 		Short: "Generate unit for tao",
 		Long:  `Generate unit for tao, e.g. https://github.com/taouniverse/tao-hello`,
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			path, err := utils.CheckDir(dir, name)
 			if err != nil {
-				tao.Panic(err)
+				return
 			}
 			templates := map[string]string{
 				path + "config.go":      license.Apache2FileHeaderTpl + unit.Config,
@@ -59,13 +58,9 @@ var (
 			}
 			err = utils.ExecuteTemplate(templates, params)
 			if err != nil {
-				tao.Panic(err)
+				return
 			}
-			output, err := utils.ModTidy(path)
-			tao.Debugf("%s", string(output))
-			if err != nil {
-				tao.Panic(err)
-			}
+			return utils.ModTidy(path)
 		},
 	}
 )
@@ -73,8 +68,8 @@ var (
 func init() {
 	// Persistence Flags
 	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/tao-hello", "target module name of unit")
-	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "", "require modules, split by "+utils.Split)
+	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "", "require modules, split by '"+utils.Split+"'")
 	Cmd.PersistentFlags().StringVarP(&dir, "dir", "d", "./", "unit's parent path")
-	Cmd.PersistentFlags().StringVarP(&name, "name", "n", "tao-hello", "name of the target unit")
+	Cmd.PersistentFlags().StringVarP(&name, "name", "n", "tao-hello", "name of the target unit directory")
 	Cmd.PersistentFlags().StringVarP(&author, "author", "a", "huija", "author of the target unit")
 }
