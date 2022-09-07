@@ -21,6 +21,8 @@ package {{ .Module | package }}
 import (
 	"encoding/json"
 	"github.com/taouniverse/tao"
+	// TODO use the following modules to develop this unit
+	{{ .Require | import }}
 )
 
 /**
@@ -31,7 +33,7 @@ import _ "{{ .Module }}"
 var {{ .Module | package | first | upper }} = new(Config)
 
 func init() {
-	err := tao.Register(ConfigKey, func() error {
+	err := tao.Register(ConfigKey, func() (err error) {
 		// 1. transfer config bytes to object
 		bytes, err := tao.GetConfigBytes(ConfigKey)
 		if err != nil {
@@ -43,7 +45,12 @@ func init() {
 			}
 		}
 		// 2. set object to tao
-		return tao.SetConfig(ConfigKey, {{ .Module | package | first | upper }})
+		err = tao.SetConfig(ConfigKey, {{ .Module | package | first | upper }})
+		if err != nil {
+			return err
+		}
+		// TODO setup your unit before run JOB
+		return
 	})
 	if err != nil {
 		panic(err.Error())

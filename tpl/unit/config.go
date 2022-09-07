@@ -25,14 +25,13 @@ package {{ .Module | package }}
 import (
 	"context"
 	"github.com/taouniverse/tao"
-	// TODO use the following modules to develop this unit
-	{{ .Require | import }}
 )
 
 // ConfigKey for this repo
 const ConfigKey = "{{ .Module | package }}"
 
 // Config implements tao.Config
+// TODO declare the configuration you want & define some default values
 type Config struct {
 	RunAfters []string ` + utils.BackQuote + `json:"run_after,omitempty"` + utils.BackQuote + `
 }
@@ -64,7 +63,7 @@ func (h *Config) ToTask() tao.Task {
 				return param, tao.NewError(tao.ContextCanceled, "%s: context has been canceled", ConfigKey)
 			default:
 			}
-			// TODO JOB
+			// TODO JOB code run after RunAfters, you can just do nothing here
 			return param, nil
 		})
 }
