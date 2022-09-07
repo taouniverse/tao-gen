@@ -14,14 +14,7 @@
 
 package project
 
-// Mod go.mod
-const Mod = `
-module {{ .Module }}
-
-{{ .GoVersion }}
-
-require (
-	github.com/taouniverse/tao latest
-	{{ .Require | require }}
-)
+// README of tao project
+const README = `# {{ .Module }}
+taogo自动创建的产品项目, 主要是基于tao的组件, 只编写配置和业务代码.
 `

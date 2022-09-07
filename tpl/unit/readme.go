@@ -12,16 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package project
+package unit
 
-// Mod go.mod
-const Mod = `
-module {{ .Module }}
-
-{{ .GoVersion }}
-
-require (
-	github.com/taouniverse/tao latest
-	{{ .Require | require }}
-)
+// README of tao unit
+const README = `# {{ .Module }}
+taogo自动创建的组件项目, 主要是封装一些重复性质的代码, 减少编码量
 `

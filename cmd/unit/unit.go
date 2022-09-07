@@ -20,7 +20,9 @@ import (
 	"github.com/taouniverse/taogo/tpl/license"
 	"github.com/taouniverse/taogo/tpl/unit"
 	"github.com/taouniverse/taogo/utils"
+	"runtime"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -46,12 +48,14 @@ var (
 				path + "init.go":        license.Apache2FileHeaderTpl + unit.Init,
 				path + "go.mod":         unit.Mod,
 				path + "LICENSE":        license.Apache2LicenseFileTpl,
+				path + "README.md":      unit.README,
 			}
 			params := map[string]string{
-				"Author":  author,
-				"Module":  module,
-				"Require": require,
-				"Year":    strconv.Itoa(time.Now().Year()),
+				"Author":    author,
+				"Module":    module,
+				"Require":   require,
+				"Year":      strconv.Itoa(time.Now().Year()),
+				"GoVersion": strings.Replace(runtime.Version(), "go1.", "go 1.", 1),
 			}
 			err = utils.ExecuteTemplate(templates, params)
 			if err != nil {

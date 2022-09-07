@@ -18,7 +18,7 @@ package unit
 const Mod = `
 module {{ .Module }}
 
-go 1.17
+{{ .GoVersion }}
 
 require (
 	github.com/stretchr/testify latest

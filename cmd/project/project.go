@@ -20,7 +20,9 @@ import (
 	"github.com/taouniverse/taogo/tpl/license"
 	"github.com/taouniverse/taogo/tpl/project"
 	"github.com/taouniverse/taogo/utils"
+	"runtime"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -41,15 +43,17 @@ var (
 				tao.Panic(err)
 			}
 			templates := map[string]string{
-				path + "main.go": license.Apache2FileHeaderTpl + project.Main,
-				path + "go.mod":  project.Mod,
-				path + "LICENSE": license.Apache2LicenseFileTpl,
+				path + "main.go":   license.Apache2FileHeaderTpl + project.Main,
+				path + "go.mod":    project.Mod,
+				path + "LICENSE":   license.Apache2LicenseFileTpl,
+				path + "README.md": project.README,
 			}
 			params := map[string]string{
-				"Author":  author,
-				"Module":  module,
-				"Require": require,
-				"Year":    strconv.Itoa(time.Now().Year()),
+				"Author":    author,
+				"Module":    module,
+				"Require":   require,
+				"Year":      strconv.Itoa(time.Now().Year()),
+				"GoVersion": strings.Replace(runtime.Version(), "go1.", "go 1.", 1),
 			}
 			err = utils.ExecuteTemplate(templates, params)
 			if err != nil {
