@@ -14,14 +14,12 @@
 
 package unit
 
-// Init init.go
-const Init = `
+// Unit ${unit}.go
+const Unit = `
 package {{ .Module | package }}
 
 import (
-	"encoding/json"
 	"github.com/taouniverse/tao"
-	// TODO use the following modules to develop this unit
 	{{ .Require | import }}
 )
 
@@ -33,26 +31,35 @@ import _ "{{ .Module }}"
 var {{ .Module | package | first | upper }} = new(Config)
 
 func init() {
-	err := tao.Register(ConfigKey, func() (err error) {
-		// 1. transfer config bytes to object
-		bytes, err := tao.GetConfigBytes(ConfigKey)
-		if err != nil {
-			{{ .Module | package | first | upper }} = {{ .Module | package | first | upper }}.Default().(*Config)
-		} else {
-			err = json.Unmarshal(bytes, &{{ .Module | package | first | upper }})
-			if err != nil {
-				return err
-			}
-		}
-		// 2. set object to tao
-		err = tao.SetConfig(ConfigKey, {{ .Module | package | first | upper }})
-		if err != nil {
-			return err
-		}
-		// TODO setup your unit before run JOB
-		return
-	})
+	err := tao.Register(ConfigKey, H, setup)
 	if err != nil {
 		panic(err.Error())
 	}
+}
+
+// TODO setup unit with the global config '{{ .Module | package | first | upper }}'
+// execute when init tao universe
+func setup() error {
+	return nil
 }`
+
+// UnitTest ${unit}_test.go
+const UnitTest = `
+package {{ .Module | package }}
+
+import (
+	"github.com/stretchr/testify/assert"
+	"github.com/taouniverse/tao"
+	"testing"
+)
+
+func TestTao(t *testing.T) {
+	err := tao.DevelopMode()
+	assert.Nil(t, err)
+
+	assert.Equal(t, {{ .Module | package | first | upper }}, default{{ .Module | package | title }})
+
+	err = tao.Run(nil, nil)
+	assert.Nil(t, err)
+}
+`

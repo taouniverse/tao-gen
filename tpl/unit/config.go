@@ -40,20 +40,20 @@ var default{{ .Module | package | title }} = &Config{
 	RunAfters: []string{},
 }
 
-// Default config
-func (h *Config) Default() tao.Config {
-	return default{{ .Module | package | title }}
+// Name of Config
+func ({{ .Module | package | first }} *Config) Name() string {
+	return ConfigKey
 }
 
 // ValidSelf with some default values
-func (h *Config) ValidSelf() {
-	if h.RunAfters == nil {
-		h.RunAfters = default{{ .Module | package | title }}.RunAfters
+func ({{ .Module | package | first }} *Config) ValidSelf() {
+	if {{ .Module | package | first }}.RunAfters == nil {
+		{{ .Module | package | first }}.RunAfters = default{{ .Module | package | title }}.RunAfters
 	}
 }
 
 // ToTask transform itself to Task
-func (h *Config) ToTask() tao.Task {
+func ({{ .Module | package | first }} *Config) ToTask() tao.Task {
 	return tao.NewTask(
 		ConfigKey,
 		func(ctx context.Context, param tao.Parameter) (tao.Parameter, error) {
@@ -80,17 +80,15 @@ package {{ .Module | package }}
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/taouniverse/tao"
 	"testing"
 )
 
-func TestTao(t *testing.T) {
-	err := tao.DevelopMode()
-	assert.Nil(t, err)
+func TestConfig(t *testing.T) {
+	{{ .Module | package | first }} := new(Config)
+	{{ .Module | package | first }}.ValidSelf()
+	assert.EqualValues(t, {{ .Module | package | first }}, defaultHello)
 
-	assert.Equal(t, {{ .Module | package | first | upper }}, default{{ .Module | package | title }})
-
-	err = tao.Run(nil, nil)
-	assert.Nil(t, err)
+	t.Log({{ .Module | package | first }}.RunAfter())
+	t.Log({{ .Module | package | first }}.ToTask())
 }
 `

@@ -27,3 +27,12 @@ func ModTidy(dir string) error {
 	command.Stdout = os.Stdout
 	return command.Run()
 }
+
+// TestCover go test -v --cover
+func TestCover(dir string) error {
+	command := exec.Command("go", "test", "-v", "--cover")
+	command.Dir = dir
+	command.Stderr = os.Stderr
+	command.Stdout = os.Stdout
+	return command.Run()
+}

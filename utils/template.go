@@ -47,7 +47,7 @@ func CheckDir(dir, name string) (path string, err error) {
 			return
 		}
 		if len(readDir) > 0 {
-			err = tao.NewError(tao.ParamInvalid, "'%s' was not empty", path)
+			err = tao.NewError(tao.ParamInvalid, "%q was not empty", path)
 			return
 		}
 	}

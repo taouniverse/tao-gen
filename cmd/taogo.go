@@ -30,21 +30,18 @@ var Cmd = &cobra.Command{
 }
 
 var data = []byte(`
-{
-  "tao": {
-    "log": {
-      "level": "debug",
-      "type": "console"
-    },
-    "hide_banner": true
-  }
-}
+tao:
+  log:
+    level: debug
+  banner:
+    hide: false
+    content: 111
 `)
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	err := tao.SetConfigBytesAll(data, tao.JSON)
+	err := tao.SetAllConfigBytes(data, tao.Yaml)
 	if err != nil {
 		log.Fatal(err)
 	}

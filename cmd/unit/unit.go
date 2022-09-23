@@ -41,10 +41,12 @@ var (
 			if err != nil {
 				return
 			}
+			u := strings.TrimPrefix(name, "tao-")
 			templates := map[string]string{
 				path + "config.go":      license.Apache2FileHeaderTpl + unit.Config,
 				path + "config_test.go": license.Apache2FileHeaderTpl + unit.ConfigTest,
-				path + "init.go":        license.Apache2FileHeaderTpl + unit.Init,
+				path + u + ".go":        license.Apache2FileHeaderTpl + unit.Unit,
+				path + u + "_test.go":   license.Apache2FileHeaderTpl + unit.UnitTest,
 				path + "go.mod":         unit.Mod,
 				path + "LICENSE":        license.Apache2LicenseFileTpl,
 				path + "README.md":      unit.README,
@@ -60,7 +62,11 @@ var (
 			if err != nil {
 				return
 			}
-			return utils.ModTidy(path)
+			err = utils.ModTidy(path)
+			if err != nil {
+				return
+			}
+			return utils.TestCover(path)
 		},
 	}
 )

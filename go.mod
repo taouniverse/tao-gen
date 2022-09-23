@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/spf13/cobra v1.4.0
 	github.com/stretchr/testify v1.7.0
-	github.com/taouniverse/tao v0.1.3
+	github.com/taouniverse/tao v0.1.5
 )
 
 require (

@@ -33,6 +33,6 @@ func main() {
 
 	err = tao.Run(nil, nil)
 	if err != nil {
-		tao.Error(err)
+		panic(err)
 	}
 }`
