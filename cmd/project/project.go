@@ -32,6 +32,7 @@ var (
 	require string
 	dir     string
 
+	// Cmd of taogo project
 	Cmd = &cobra.Command{
 		Use:   "project",
 		Short: "Generate project based on tao universe",

@@ -32,6 +32,7 @@ var (
 	require string
 	dir     string
 
+	// Cmd of taogo unit
 	Cmd = &cobra.Command{
 		Use:   "unit",
 		Short: "Generate unit for tao",

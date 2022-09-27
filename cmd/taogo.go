@@ -23,6 +23,7 @@ import (
 	"log"
 )
 
+// Cmd of taogo
 var Cmd = &cobra.Command{
 	Use:   "taogo",
 	Short: "Generator of tao",

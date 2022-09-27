@@ -21,7 +21,7 @@ import (
 
 const version = "v0.0.1"
 
-// Cmd represents the version command
+// Cmd of taogo version
 var Cmd = &cobra.Command{
 	Use:   "version",
 	Short: "Prints version of tao's gen",

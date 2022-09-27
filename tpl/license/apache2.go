@@ -14,6 +14,7 @@
 
 package license
 
+// Apache2FileHeaderTpl file's header tpl for apache2
 const Apache2FileHeaderTpl = `// Copyright {{ .Year }} {{ .Author }}
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +30,7 @@ const Apache2FileHeaderTpl = `// Copyright {{ .Year }} {{ .Author }}
 // limitations under the License.
 `
 
+// Apache2LicenseFileTpl License file tpl for apache2
 const Apache2LicenseFileTpl = ` Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
