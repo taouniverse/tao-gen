@@ -33,9 +33,16 @@ var data = []byte(`
 tao:
   log:
     level: debug
+    type: console
   banner:
     hide: false
-    content: 111
+    content: |
+      01__
+      _/  |______    ____   ____   ____
+      \   __\__  \  /  _ \ / ___\ /  _ \
+       |  |  / __ \(  <_> ) /_/  >  <_> )
+       |__| (____  /\____/\___  / \____/
+                 \/      /_____/
 `)
 
 // Execute adds all child commands to the root command and sets flags appropriately.
