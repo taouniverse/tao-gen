@@ -31,7 +31,7 @@ import _ "{{ .Module }}"
 var {{ .Module | package | first | upper }} = new(Config)
 
 func init() {
-	err := tao.Register(ConfigKey, H, setup)
+	err := tao.Register(ConfigKey, {{ .Module | package | first | upper }}, setup)
 	if err != nil {
 		panic(err.Error())
 	}

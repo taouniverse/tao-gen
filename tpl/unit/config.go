@@ -69,8 +69,8 @@ func ({{ .Module | package | first }} *Config) ToTask() tao.Task {
 }
 
 // RunAfter defines pre task names
-func (h *Config) RunAfter() []string {
-	return h.RunAfters
+func ({{ .Module | package | first }} *Config) RunAfter() []string {
+	return {{ .Module | package | first }}.RunAfters
 }
 `
 
@@ -86,7 +86,7 @@ import (
 func TestConfig(t *testing.T) {
 	{{ .Module | package | first }} := new(Config)
 	{{ .Module | package | first }}.ValidSelf()
-	assert.EqualValues(t, {{ .Module | package | first }}, defaultHello)
+	assert.EqualValues(t, {{ .Module | package | first }}, default{{ .Module | package | title }})
 
 	t.Log({{ .Module | package | first }}.RunAfter())
 	t.Log({{ .Module | package | first }}.ToTask())
