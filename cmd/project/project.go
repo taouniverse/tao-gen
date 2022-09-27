@@ -58,7 +58,11 @@ var (
 			if err != nil {
 				return
 			}
-			return utils.ModTidy(path)
+			err = utils.ModTidy(path)
+			if err != nil {
+				return
+			}
+			return utils.TestCover(path)
 		},
 	}
 )
