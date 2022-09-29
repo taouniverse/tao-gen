@@ -35,6 +35,7 @@ tao:
   log:
     level: debug
     type: console
+    flag: std
   banner:
     hide: false
     content: |
