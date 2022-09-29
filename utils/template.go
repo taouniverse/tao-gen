@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"github.com/taouniverse/tao"
 	"os"
+	"sort"
 	"strings"
 	"text/template"
 )
@@ -96,6 +97,7 @@ func importFunc(s string) (r string) {
 		return
 	}
 	imports := strings.Split(s, Split)
+	sort.Strings(imports)
 	for i := 0; i < len(imports); i++ {
 		r += fmt.Sprintf("_ \"%s\"", imports[i])
 		if i != len(imports)-1 {
