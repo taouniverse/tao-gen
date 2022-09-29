@@ -20,6 +20,8 @@ package {{ .Module | package }}
 
 import (
 	"github.com/taouniverse/tao"
+	// Load the required dependencies.
+	// An error occurs when there was no package in the root directory.
 	{{ .Require | import }}
 )
 
