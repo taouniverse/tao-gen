@@ -18,10 +18,10 @@ package project
 const Mod = `
 module {{ .Module }}
 
-{{ .GoVersion }}
+{{ .GoVersion | modVersion }}
 
 require (
 	github.com/taouniverse/tao latest
-	{{ .Require | require }}
+	{{ .Require | modRequire }}
 )
 `

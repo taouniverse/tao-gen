@@ -1,6 +1,6 @@
 # taogo
 
-```go
+```
     01__
     _/  |______    ____   ____   ____
     \   __\__  \  /  _ \ / ___\ /  _ \
@@ -12,8 +12,9 @@
 A util to generate the universe of tao!
 
 ```shell
-go install github.com/taouniverse/taogo@latest
+go install github.com/taouniverse/taogo@v0.0.2
 taogo --help
+taogo version
 ```
 
 ## unit
@@ -22,7 +23,7 @@ generate tao unit
 
 ```shell
 taogo help unit
-taogo unit -m github.com/taouniverse/tao-mysql -n tao-mysql -r github.com/go-sql-driver/mysql
+taogo unit -m github.com/taouniverse/tao-mysql -n tao-mysql -r gorm.io/gorm,gorm.io/driver/mysql
 ```
 
 ## project

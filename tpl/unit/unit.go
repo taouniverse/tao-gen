@@ -16,7 +16,7 @@ package unit
 
 // Unit ${unit}.go
 const Unit = `
-package {{ .Module | package }}
+package {{ .Module | packageName }}
 
 import (
 	"github.com/taouniverse/tao"
@@ -29,17 +29,17 @@ import (
 import _ "{{ .Module }}"
 */
 
-// {{ .Module | package | first | upper }} config of {{ .Module | package }}
-var {{ .Module | package | first | upper }} = new(Config)
+// {{ .Module | packageName | firstChar | toUpper }} config of {{ .Module | packageName }}
+var {{ .Module | packageName | firstChar | toUpper }} = new(Config)
 
 func init() {
-	err := tao.Register(ConfigKey, {{ .Module | package | first | upper }}, setup)
+	err := tao.Register(ConfigKey, {{ .Module | packageName | firstChar | toUpper }}, setup)
 	if err != nil {
 		panic(err.Error())
 	}
 }
 
-// TODO setup unit with the global config '{{ .Module | package | first | upper }}'
+// TODO setup unit with the global config '{{ .Module | packageName | firstChar | toUpper }}'
 // execute when init tao universe
 func setup() error {
 	return nil
@@ -47,7 +47,7 @@ func setup() error {
 
 // UnitTest ${unit}_test.go
 const UnitTest = `
-package {{ .Module | package }}
+package {{ .Module | packageName }}
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -59,7 +59,7 @@ func TestTao(t *testing.T) {
 	err := tao.DevelopMode()
 	assert.Nil(t, err)
 
-	assert.Equal(t, {{ .Module | package | first | upper }}, default{{ .Module | package | title }})
+	assert.Equal(t, {{ .Module | packageName | firstChar | toUpper }}, default{{ .Module | packageName | title }})
 
 	err = tao.Run(nil, nil)
 	assert.Nil(t, err)

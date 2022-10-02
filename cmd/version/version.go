@@ -19,7 +19,7 @@ import (
 	"github.com/taouniverse/tao"
 )
 
-const version = "v0.0.1"
+const version = "v0.0.2"
 
 // Cmd of taogo version
 var Cmd = &cobra.Command{

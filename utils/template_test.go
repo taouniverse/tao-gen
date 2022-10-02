@@ -21,14 +21,20 @@ import (
 )
 
 func TestTemplate(t *testing.T) {
-	r, err := packageFunc("github.com/tao/tao-hello")
+	assert.Equal(t, importFunc(""), "")
+	assert.Equal(t, modRequire(""), "")
+
+	r, err := packageName("github.com/tao/tao-hello")
 	assert.Nil(t, err)
 	assert.Equal(t, r, "hello")
 
-	r, err = firstFunc(r)
+	r, err = firstChar(r)
 	assert.Nil(t, err)
 	assert.Equal(t, r, "h")
 
 	assert.Equal(t, strings.Title("hello"), "Hello")
-	assert.Equal(t, requireFunc(""), "")
+
+	r, err = modVersion("go1.17.2")
+	assert.Nil(t, err)
+	assert.Equal(t, r, "go 1.17")
 }

@@ -18,11 +18,11 @@ package unit
 const Mod = `
 module {{ .Module }}
 
-{{ .GoVersion }}
+{{ .GoVersion | modVersion }}
 
 require (
 	github.com/stretchr/testify latest
 	github.com/taouniverse/tao latest
-	{{ .Require | require }}
+	{{ .Require | modRequire }}
 )
 `

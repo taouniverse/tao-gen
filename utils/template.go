@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"github.com/taouniverse/tao"
 	"os"
+	"runtime"
 	"sort"
 	"strings"
 	"text/template"
@@ -84,12 +85,13 @@ func ExecuteTemplate(templates, params map[string]string) error {
 }
 
 var templateFuncMap = template.FuncMap{
-	"import":  importFunc,
-	"require": requireFunc,
-	"package": packageFunc,
-	"first":   firstFunc,
-	"upper":   strings.ToUpper,
-	"title":   strings.Title,
+	"import":      importFunc,
+	"modRequire":  modRequire,
+	"packageName": packageName,
+	"firstChar":   firstChar,
+	"toUpper":     strings.ToUpper,
+	"title":       strings.Title,
+	"modVersion":  modVersion,
 }
 
 func importFunc(s string) (r string) {
@@ -107,7 +109,7 @@ func importFunc(s string) (r string) {
 	return
 }
 
-func requireFunc(s string) (r string) {
+func modRequire(s string) (r string) {
 	if s == "" {
 		return
 	}
@@ -121,7 +123,7 @@ func requireFunc(s string) (r string) {
 	return
 }
 
-func packageFunc(s string) (r string, err error) {
+func packageName(s string) (r string, err error) {
 	if len(s) == 0 {
 		return "", tao.NewError(tao.ParamInvalid, "empty string")
 	}
@@ -129,9 +131,20 @@ func packageFunc(s string) (r string, err error) {
 	return strings.TrimPrefix(split[len(split)-1], "tao-"), nil
 }
 
-func firstFunc(s string) (r string, err error) {
+func firstChar(s string) (r string, err error) {
 	if len(s) == 0 {
 		return "", tao.NewError(tao.ParamInvalid, "empty string")
 	}
 	return s[0:1], nil
+}
+
+func modVersion(s string) (r string, err error) {
+	if s == "" {
+		s = runtime.Version()
+	}
+	goVersion := strings.Split(s, ".")
+	if len(goVersion) <= 1 {
+		return "", tao.NewError(tao.Unknown, "project: unknown go version %+v", goVersion)
+	}
+	return strings.Replace(goVersion[0]+"."+goVersion[1], "go1.", "go 1.", 1), nil
 }

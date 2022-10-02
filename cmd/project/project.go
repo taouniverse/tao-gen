@@ -21,7 +21,6 @@ import (
 	"github.com/taouniverse/taogo/utils"
 	"runtime"
 	"strconv"
-	"strings"
 	"time"
 )
 
@@ -53,7 +52,7 @@ var (
 				"Module":    module,
 				"Require":   require,
 				"Year":      strconv.Itoa(time.Now().Year()),
-				"GoVersion": strings.Replace(runtime.Version(), "go1.", "go 1.", 1),
+				"GoVersion": runtime.Version(),
 			}
 			err = utils.ExecuteTemplate(templates, params)
 			if err != nil {
