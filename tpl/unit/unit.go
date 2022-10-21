@@ -59,8 +59,6 @@ func TestTao(t *testing.T) {
 	err := tao.DevelopMode()
 	assert.Nil(t, err)
 
-	assert.Equal(t, {{ .Module | packageName | firstChar | toUpper }}, default{{ .Module | packageName | title }})
-
 	err = tao.Run(nil, nil)
 	assert.Nil(t, err)
 }
