@@ -23,6 +23,5 @@ module {{ .Module }}
 require (
 	github.com/stretchr/testify latest
 	github.com/taouniverse/tao latest
-	{{ .Require | modRequire }}
 )
 `

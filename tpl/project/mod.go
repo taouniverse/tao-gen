@@ -22,6 +22,5 @@ module {{ .Module }}
 
 require (
 	github.com/taouniverse/tao latest
-	{{ .Require | modRequire }}
 )
 `

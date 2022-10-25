@@ -86,7 +86,6 @@ func ExecuteTemplate(templates, params map[string]string) error {
 
 var templateFuncMap = template.FuncMap{
 	"import":      importFunc,
-	"modRequire":  modRequire,
 	"packageName": packageName,
 	"firstChar":   firstChar,
 	"toUpper":     strings.ToUpper,
@@ -103,20 +102,6 @@ func importFunc(s string) (r string) {
 	for i := 0; i < len(imports); i++ {
 		r += fmt.Sprintf("_ \"%s\"", imports[i])
 		if i != len(imports)-1 {
-			r += "\n\t"
-		}
-	}
-	return
-}
-
-func modRequire(s string) (r string) {
-	if s == "" {
-		return
-	}
-	requires := strings.Split(s, Split)
-	for i := 0; i < len(requires); i++ {
-		r += fmt.Sprintf("%s latest", requires[i])
-		if i != len(requires)-1 {
 			r += "\n\t"
 		}
 	}

@@ -22,7 +22,6 @@ import (
 
 func TestTemplate(t *testing.T) {
 	assert.Equal(t, importFunc(""), "")
-	assert.Equal(t, modRequire(""), "")
 
 	r, err := packageName("github.com/tao/tao-hello")
 	assert.Nil(t, err)
