@@ -15,8 +15,8 @@
 package utils
 
 import (
-	"fmt"
 	"github.com/taouniverse/tao"
+	"github.com/taouniverse/taogo/constant"
 	"os"
 	"runtime"
 	"sort"
@@ -26,14 +26,14 @@ import (
 
 // CheckDir before ExecuteTemplate
 func CheckDir(dir, name string) (path string, err error) {
-	if !strings.HasSuffix(dir, "/") {
-		dir += "/"
+	if !strings.HasSuffix(dir, constant.PathSplit) {
+		dir += constant.PathSplit
 	}
 	_, err = os.Stat(dir)
 	if err != nil {
 		return
 	}
-	path = dir + name + "/"
+	path = dir + name + constant.PathSplit
 	_, err = os.Stat(path)
 	if err != nil {
 		// create the target dir
@@ -57,12 +57,6 @@ func CheckDir(dir, name string) (path string, err error) {
 	err = Init(path)
 	return
 }
-
-// Split of array string
-const Split = ","
-
-// BackQuote in template
-const BackQuote = "`"
 
 // ExecuteTemplate to generate files
 func ExecuteTemplate(templates, params map[string]string) error {
@@ -97,10 +91,22 @@ func importFunc(s string) (r string) {
 	if s == "" {
 		return
 	}
-	imports := strings.Split(s, Split)
+	imports := strings.Split(s, constant.ParamSplit)
 	sort.Strings(imports)
 	for i := 0; i < len(imports); i++ {
-		r += fmt.Sprintf("_ \"%s\"", imports[i])
+		unitInfo := strings.Split(imports[i], constant.PathSplit)
+		switch len(unitInfo) {
+		case 1:
+			if strings.HasPrefix(unitInfo[0], constant.DefaultUnitPrefix) {
+				unitInfo = []string{constant.DefaultSite, constant.DefaultTeam, unitInfo[0]}
+			}
+		case 2:
+			if strings.HasPrefix(unitInfo[1], constant.DefaultUnitPrefix) {
+				unitInfo = []string{constant.DefaultSite, unitInfo[0], unitInfo[1]}
+			}
+		default:
+		}
+		r += constant.ImportDaemon + strings.Join(unitInfo, constant.PathSplit)
 		if i != len(imports)-1 {
 			r += "\n\t"
 		}
@@ -113,7 +119,7 @@ func packageName(s string) (r string, err error) {
 		return "", tao.NewError(tao.ParamInvalid, "empty string")
 	}
 	split := strings.Split(s, "/")
-	return strings.TrimPrefix(split[len(split)-1], "tao-"), nil
+	return strings.TrimPrefix(split[len(split)-1], constant.DefaultUnitPrefix), nil
 }
 
 func firstChar(s string) (r string, err error) {

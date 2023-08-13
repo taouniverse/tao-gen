@@ -27,3 +27,12 @@ func Init(dir string) error {
 	command.Stdout = os.Stdout
 	return command.Run()
 }
+
+// RemoveDir just like .git
+func RemoveDir(dir string) error {
+	command := exec.Command("rm", "-rf", dir)
+	command.Dir = "./"
+	command.Stderr = os.Stderr
+	command.Stdout = os.Stdout
+	return command.Run()
+}

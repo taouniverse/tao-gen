@@ -22,4 +22,7 @@ import (
 func TestInit(t *testing.T) {
 	err := Init("./")
 	assert.Nil(t, err)
+
+	err = RemoveDir(".git")
+	assert.Nil(t, err)
 }

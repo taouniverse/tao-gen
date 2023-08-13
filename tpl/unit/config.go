@@ -15,7 +15,7 @@
 package unit
 
 import (
-	"github.com/taouniverse/taogo/utils"
+	"github.com/taouniverse/taogo/constant"
 )
 
 // Config config.go
@@ -33,7 +33,7 @@ const ConfigKey = "{{ .Module | packageName }}"
 // Config implements tao.Config
 // TODO declare the configuration you want & define some default values
 type Config struct {
-	RunAfters []string ` + utils.BackQuote + `json:"run_after,omitempty"` + utils.BackQuote + `
+	RunAfters []string ` + constant.BackQuote + `json:"run_after,omitempty"` + constant.BackQuote + `
 }
 
 var default{{ .Module | packageName | title }} = &Config{

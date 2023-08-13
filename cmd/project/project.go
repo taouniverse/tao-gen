@@ -16,6 +16,7 @@ package project
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/taouniverse/taogo/constant"
 	"github.com/taouniverse/taogo/tpl/license"
 	"github.com/taouniverse/taogo/tpl/project"
 	"github.com/taouniverse/taogo/utils"
@@ -70,7 +71,7 @@ var (
 func init() {
 	// Persistence Flags
 	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/hello", "target module name of project")
-	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "github.com/taouniverse/tao-hello", "require modules, split by '"+utils.Split+"'")
+	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "github.com/taouniverse/tao-hello", "require modules, split by '"+constant.ParamSplit+"'")
 	Cmd.PersistentFlags().StringVarP(&dir, "dir", "d", "./", "project's parent path")
 	Cmd.PersistentFlags().StringVarP(&name, "name", "n", "hello", "name of the target project directory")
 	Cmd.PersistentFlags().StringVarP(&author, "author", "a", "huija", "author of the target project")
