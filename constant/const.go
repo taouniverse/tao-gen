@@ -1,5 +1,8 @@
 package constant
 
+// Version of taogo
+const Version = "0.0.3"
+
 // ParamSplit of array string
 const ParamSplit = ","
 

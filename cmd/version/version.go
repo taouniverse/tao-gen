@@ -17,9 +17,8 @@ package version
 import (
 	"github.com/spf13/cobra"
 	"github.com/taouniverse/tao"
+	"github.com/taouniverse/taogo/constant"
 )
-
-const version = "v0.0.2"
 
 // Cmd of taogo version
 var Cmd = &cobra.Command{
@@ -27,6 +26,6 @@ var Cmd = &cobra.Command{
 	Short: "Prints version of tao's gen",
 	Long:  `Prints version of current tao generator`,
 	Run: func(cmd *cobra.Command, args []string) {
-		tao.Info("tao generator version:", version)
+		tao.Info("tao generator version:", constant.Version)
 	},
 }
