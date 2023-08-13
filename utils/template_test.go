@@ -15,13 +15,22 @@
 package utils
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/taouniverse/taogo/constant"
 	"strings"
 	"testing"
 )
 
 func TestTemplate(t *testing.T) {
-	assert.Equal(t, importFunc(""), "")
+	t.Run("importFunc", func(t *testing.T) {
+		assert.Equal(t, importFunc(""), "")
+
+		assert.Equal(t, importFunc("tao-hello"), fmt.Sprintf("%s%s/%s/%s",
+			constant.ImportDaemon, constant.DefaultSite, constant.DefaultTeam, "tao-hello"))
+
+		assert.Equal(t, importFunc("gorm.io/gorm"), constant.ImportDaemon+"gorm.io/gorm")
+	})
 
 	r, err := packageName("github.com/tao/tao-hello")
 	assert.Nil(t, err)

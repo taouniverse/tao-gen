@@ -32,6 +32,6 @@ generate tao project
 
 ```shell
 taogo help project
-taogo project -m github.com/taouniverse/home -n home -r github.com/taouniverse/tao-gin
+taogo project -m github.com/taouniverse/home -n home -r tao-gin
 ```
 

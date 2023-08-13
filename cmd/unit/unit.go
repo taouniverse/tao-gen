@@ -16,6 +16,7 @@ package unit
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/taouniverse/taogo/constant"
 	"github.com/taouniverse/taogo/tpl/license"
 	"github.com/taouniverse/taogo/tpl/unit"
 	"github.com/taouniverse/taogo/utils"
@@ -42,7 +43,7 @@ var (
 			if err != nil {
 				return
 			}
-			u := strings.TrimPrefix(name, "tao-")
+			u := strings.TrimPrefix(name, constant.DefaultUnitPrefix)
 			templates := map[string]string{
 				path + "config.go":      license.Apache2FileHeaderTpl + unit.Config,
 				path + "config_test.go": license.Apache2FileHeaderTpl + unit.ConfigTest,
@@ -75,7 +76,7 @@ var (
 func init() {
 	// Persistence Flags
 	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/tao-hello", "target module name of unit")
-	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "", "require modules, split by '"+utils.Split+"'")
+	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "", "require modules, split by '"+constant.ParamSplit+"'")
 	Cmd.PersistentFlags().StringVarP(&dir, "dir", "d", "./", "unit's parent path")
 	Cmd.PersistentFlags().StringVarP(&name, "name", "n", "tao-hello", "name of the target unit directory")
 	Cmd.PersistentFlags().StringVarP(&author, "author", "a", "huija", "author of the target unit")
