@@ -12,7 +12,7 @@ _/  |______    ____   ____   ____
 A util to generate the universe of tao!
 
 ```shell
-go install github.com/taouniverse/taogo@v0.0.2
+go install github.com/taouniverse/taogo@latest
 taogo --help
 taogo version
 ```
