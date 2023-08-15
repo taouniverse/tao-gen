@@ -17,6 +17,7 @@ package project
 import (
 	"github.com/spf13/cobra"
 	"github.com/taouniverse/taogo/constant"
+	"github.com/taouniverse/taogo/tpl/git"
 	"github.com/taouniverse/taogo/tpl/license"
 	"github.com/taouniverse/taogo/tpl/project"
 	"github.com/taouniverse/taogo/utils"
@@ -43,10 +44,11 @@ var (
 				return
 			}
 			templates := map[string]string{
-				path + "main.go":   license.Apache2FileHeaderTpl + project.Main,
-				path + "go.mod":    project.Mod,
-				path + "LICENSE":   license.Apache2LicenseFileTpl,
-				path + "README.md": project.README,
+				path + ".gitignore": git.GitIgnoreTpl,
+				path + "main.go":    license.Apache2FileHeaderTpl + project.Main,
+				path + "go.mod":     project.Mod,
+				path + "LICENSE":    license.Apache2LicenseFileTpl,
+				path + "README.md":  project.README,
 			}
 			params := map[string]string{
 				"Author":    author,
