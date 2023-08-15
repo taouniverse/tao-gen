@@ -1,4 +1,4 @@
-// Copyright 2022 huija
+// Copyright 2023 huija
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,20 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package version
+package git
 
-import (
-	"github.com/spf13/cobra"
-	"github.com/taouniverse/tao"
-	"github.com/taouniverse/taogo/constant"
-)
+import "github.com/taouniverse/taogo/constant"
 
-// Cmd of taogo version
-var Cmd = &cobra.Command{
-	Use:   "version",
-	Short: "Prints version of tao's gen",
-	Long:  `Prints version of current tao generator`,
-	Run: func(cmd *cobra.Command, args []string) {
-		tao.Info("tao generator version:", constant.Version)
-	},
-}
+// GitIgnoreTpl of .gitignore
+const GitIgnoreTpl = `
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with ` + constant.BackQuote + `go test -c` + constant.BackQuote + `
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+coverage.html
+coverage.txt
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# others
+*.log
+`

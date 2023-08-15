@@ -15,6 +15,7 @@
 package utils
 
 import (
+	"fmt"
 	"github.com/taouniverse/tao"
 	"github.com/taouniverse/taogo/constant"
 	"os"
@@ -106,7 +107,7 @@ func importFunc(s string) (r string) {
 			}
 		default:
 		}
-		r += constant.ImportDaemon + strings.Join(unitInfo, constant.PathSplit)
+		r += fmt.Sprintf("%s\"%s\"", constant.ImportDaemon, strings.Join(unitInfo, constant.PathSplit))
 		if i != len(imports)-1 {
 			r += "\n\t"
 		}

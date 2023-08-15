@@ -17,6 +17,7 @@ package unit
 import (
 	"github.com/spf13/cobra"
 	"github.com/taouniverse/taogo/constant"
+	"github.com/taouniverse/taogo/tpl/git"
 	"github.com/taouniverse/taogo/tpl/license"
 	"github.com/taouniverse/taogo/tpl/unit"
 	"github.com/taouniverse/taogo/utils"
@@ -45,6 +46,7 @@ var (
 			}
 			u := strings.TrimPrefix(name, constant.DefaultUnitPrefix)
 			templates := map[string]string{
+				path + ".gitignore":     git.GitIgnoreTpl,
 				path + "config.go":      license.Apache2FileHeaderTpl + unit.Config,
 				path + "config_test.go": license.Apache2FileHeaderTpl + unit.ConfigTest,
 				path + u + ".go":        license.Apache2FileHeaderTpl + unit.Unit,
