@@ -26,10 +26,11 @@ func TestTemplate(t *testing.T) {
 	t.Run("importFunc", func(t *testing.T) {
 		assert.Equal(t, importFunc(""), "")
 
-		assert.Equal(t, importFunc("tao-hello"), fmt.Sprintf("%s%s/%s/%s",
+		assert.Equal(t, importFunc("tao-hello"), fmt.Sprintf("%s\"%s/%s/%s\"",
 			constant.ImportDaemon, constant.DefaultSite, constant.DefaultTeam, "tao-hello"))
 
-		assert.Equal(t, importFunc("gorm.io/gorm"), constant.ImportDaemon+"gorm.io/gorm")
+		assert.Equal(t, importFunc("gorm.io/gorm"), fmt.Sprintf("%s\"%s\"",
+			constant.ImportDaemon, "gorm.io/gorm"))
 	})
 
 	r, err := packageName("github.com/tao/tao-hello")

@@ -21,5 +21,5 @@ const DefaultTeam = "taouniverse"
 // DefaultUnitPrefix for tao unit
 const DefaultUnitPrefix = "tao-"
 
-// ImportDaemon of tao unit
+// ImportDaemon unit of tao
 const ImportDaemon = "_ "
