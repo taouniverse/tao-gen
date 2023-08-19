@@ -33,11 +33,7 @@ func TestTemplate(t *testing.T) {
 			constant.ImportDaemon, "gorm.io/gorm"))
 	})
 
-	r, err := packageName("github.com/tao/tao-hello")
-	assert.Nil(t, err)
-	assert.Equal(t, r, "hello")
-
-	r, err = firstChar(r)
+	r, err := firstChar("hello")
 	assert.Nil(t, err)
 	assert.Equal(t, r, "h")
 

@@ -29,7 +29,6 @@ import (
 
 var (
 	author  string
-	name    string
 	module  string
 	require string
 	dir     string
@@ -40,24 +39,26 @@ var (
 		Short: "Generate unit for tao",
 		Long:  `Generate unit for tao, e.g. https://github.com/taouniverse/tao-hello`,
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			path, err := utils.CheckDir(dir, name)
+			projectName := utils.ProjectName(module)
+			path, err := utils.CheckDir(dir, projectName)
 			if err != nil {
 				return
 			}
-			u := strings.TrimPrefix(name, constant.DefaultUnitPrefix)
+			unitName := strings.TrimPrefix(projectName, constant.DefaultUnitPrefix)
 			templates := map[string]string{
-				path + ".gitignore":     git.GitIgnoreTpl,
-				path + "config.go":      license.Apache2FileHeaderTpl + unit.Config,
-				path + "config_test.go": license.Apache2FileHeaderTpl + unit.ConfigTest,
-				path + u + ".go":        license.Apache2FileHeaderTpl + unit.Unit,
-				path + u + "_test.go":   license.Apache2FileHeaderTpl + unit.UnitTest,
-				path + "go.mod":         unit.Mod,
-				path + "LICENSE":        license.Apache2LicenseFileTpl,
-				path + "README.md":      unit.README,
+				path + ".gitignore":          git.GitIgnoreTpl,
+				path + "config.go":           license.Apache2FileHeaderTpl + unit.Config,
+				path + "config_test.go":      license.Apache2FileHeaderTpl + unit.ConfigTest,
+				path + unitName + ".go":      license.Apache2FileHeaderTpl + unit.Unit,
+				path + unitName + "_test.go": license.Apache2FileHeaderTpl + unit.UnitTest,
+				path + "go.mod":              unit.Mod,
+				path + "LICENSE":             license.Apache2LicenseFileTpl,
+				path + "README.md":           unit.README,
 			}
 			params := map[string]string{
 				"Author":    author,
 				"Module":    module,
+				"Name":      utils.PackageName(projectName),
 				"Require":   require,
 				"Year":      strconv.Itoa(time.Now().Year()),
 				"GoVersion": runtime.Version(),
@@ -80,6 +81,5 @@ func init() {
 	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/tao-hello", "target module name of unit")
 	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "", "require modules, split by '"+constant.ParamSplit+"'")
 	Cmd.PersistentFlags().StringVarP(&dir, "dir", "d", "./", "unit's parent path")
-	Cmd.PersistentFlags().StringVarP(&name, "name", "n", "tao-hello", "name of the target unit directory")
 	Cmd.PersistentFlags().StringVarP(&author, "author", "a", "huija", "author of the target unit")
 }

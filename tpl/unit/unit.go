@@ -16,7 +16,7 @@ package unit
 
 // Unit ${unit}.go
 const Unit = `
-package {{ .Module | packageName }}
+package {{ .Name }}
 
 import (
 	"github.com/taouniverse/tao"
@@ -29,17 +29,17 @@ import (
 import _ "{{ .Module }}"
 */
 
-// {{ .Module | packageName | firstChar | toUpper }} config of {{ .Module | packageName }}
-var {{ .Module | packageName | firstChar | toUpper }} = new(Config)
+// {{ .Name | firstChar | toUpper }} config of {{ .Name }}
+var {{ .Name | firstChar | toUpper }} = new(Config)
 
 func init() {
-	err := tao.Register(ConfigKey, {{ .Module | packageName | firstChar | toUpper }}, setup)
+	err := tao.Register(ConfigKey, {{ .Name | firstChar | toUpper }}, setup)
 	if err != nil {
 		panic(err.Error())
 	}
 }
 
-// TODO setup unit with the global config '{{ .Module | packageName | firstChar | toUpper }}'
+// TODO setup unit with the global config '{{ .Name | firstChar | toUpper }}'
 // execute when init tao universe
 func setup() error {
 	return nil
@@ -47,7 +47,7 @@ func setup() error {
 
 // UnitTest ${unit}_test.go
 const UnitTest = `
-package {{ .Module | packageName }}
+package {{ .Name }}
 
 import (
 	"github.com/stretchr/testify/assert"

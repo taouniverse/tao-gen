@@ -80,12 +80,11 @@ func ExecuteTemplate(templates, params map[string]string) error {
 }
 
 var templateFuncMap = template.FuncMap{
-	"import":      importFunc,
-	"packageName": packageName,
-	"firstChar":   firstChar,
-	"toUpper":     strings.ToUpper,
-	"title":       strings.Title,
-	"modVersion":  modVersion,
+	"import":     importFunc,
+	"firstChar":  firstChar,
+	"toUpper":    strings.ToUpper,
+	"title":      strings.Title,
+	"modVersion": modVersion,
 }
 
 func importFunc(s string) (r string) {
@@ -113,14 +112,6 @@ func importFunc(s string) (r string) {
 		}
 	}
 	return
-}
-
-func packageName(s string) (r string, err error) {
-	if len(s) == 0 {
-		return "", tao.NewError(tao.ParamInvalid, "empty string")
-	}
-	split := strings.Split(s, "/")
-	return strings.TrimPrefix(split[len(split)-1], constant.DefaultUnitPrefix), nil
 }
 
 func firstChar(s string) (r string, err error) {
