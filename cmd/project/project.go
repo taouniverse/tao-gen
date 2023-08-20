@@ -28,7 +28,6 @@ import (
 
 var (
 	author  string
-	name    string
 	module  string
 	require string
 	dir     string
@@ -39,7 +38,8 @@ var (
 		Short: "Generate project based on tao universe",
 		Long:  `Generate project based on tao universe, e.g. https://github.com/taouniverse/hello`,
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			path, err := utils.CheckDir(dir, name)
+			projectName := utils.ProjectName(module)
+			path, err := utils.CheckDir(dir, projectName)
 			if err != nil {
 				return
 			}
@@ -53,6 +53,7 @@ var (
 			params := map[string]string{
 				"Author":    author,
 				"Module":    module,
+				"Name":      utils.PackageName(projectName),
 				"Require":   require,
 				"Year":      strconv.Itoa(time.Now().Year()),
 				"GoVersion": runtime.Version(),
@@ -75,6 +76,5 @@ func init() {
 	Cmd.PersistentFlags().StringVarP(&module, "module", "m", "github.com/taouniverse/hello", "target module name of project")
 	Cmd.PersistentFlags().StringVarP(&require, "require", "r", "github.com/taouniverse/tao-hello", "require modules, split by '"+constant.ParamSplit+"'")
 	Cmd.PersistentFlags().StringVarP(&dir, "dir", "d", "./", "project's parent path")
-	Cmd.PersistentFlags().StringVarP(&name, "name", "n", "hello", "name of the target project directory")
 	Cmd.PersistentFlags().StringVarP(&author, "author", "a", "huija", "author of the target project")
 }

@@ -20,7 +20,7 @@ import (
 
 // Config config.go
 const Config = `
-package {{ .Module | packageName }}
+package {{ .Name }}
 
 import (
 	"context"
@@ -28,7 +28,7 @@ import (
 )
 
 // ConfigKey for this repo
-const ConfigKey = "{{ .Module | packageName }}"
+const ConfigKey = "{{ .Name }}"
 
 // Config implements tao.Config
 // TODO declare the configuration you want & define some default values
@@ -36,24 +36,24 @@ type Config struct {
 	RunAfters []string ` + constant.BackQuote + `json:"run_after,omitempty"` + constant.BackQuote + `
 }
 
-var default{{ .Module | packageName | title }} = &Config{
+var default{{ .Name | title }} = &Config{
 	RunAfters: []string{},
 }
 
 // Name of Config
-func ({{ .Module | packageName | firstChar }} *Config) Name() string {
+func ({{ .Name | firstChar }} *Config) Name() string {
 	return ConfigKey
 }
 
 // ValidSelf with some default values
-func ({{ .Module | packageName | firstChar }} *Config) ValidSelf() {
-	if {{ .Module | packageName | firstChar }}.RunAfters == nil {
-		{{ .Module | packageName | firstChar }}.RunAfters = default{{ .Module | packageName | title }}.RunAfters
+func ({{ .Name | firstChar }} *Config) ValidSelf() {
+	if {{ .Name | firstChar }}.RunAfters == nil {
+		{{ .Name | firstChar }}.RunAfters = default{{ .Name | title }}.RunAfters
 	}
 }
 
 // ToTask transform itself to Task
-func ({{ .Module | packageName | firstChar }} *Config) ToTask() tao.Task {
+func ({{ .Name | firstChar }} *Config) ToTask() tao.Task {
 	return tao.NewTask(
 		ConfigKey,
 		func(ctx context.Context, param tao.Parameter) (tao.Parameter, error) {
@@ -69,14 +69,14 @@ func ({{ .Module | packageName | firstChar }} *Config) ToTask() tao.Task {
 }
 
 // RunAfter defines pre task names
-func ({{ .Module | packageName | firstChar }} *Config) RunAfter() []string {
-	return {{ .Module | packageName | firstChar }}.RunAfters
+func ({{ .Name | firstChar }} *Config) RunAfter() []string {
+	return {{ .Name | firstChar }}.RunAfters
 }
 `
 
 // ConfigTest config_test.go
 const ConfigTest = `
-package {{ .Module | packageName }}
+package {{ .Name }}
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -84,11 +84,11 @@ import (
 )
 
 func TestConfig(t *testing.T) {
-	{{ .Module | packageName | firstChar }} := new(Config)
-	{{ .Module | packageName | firstChar }}.ValidSelf()
-	assert.EqualValues(t, {{ .Module | packageName | firstChar }}, default{{ .Module | packageName | title }})
+	{{ .Name | firstChar }} := new(Config)
+	{{ .Name | firstChar }}.ValidSelf()
+	assert.EqualValues(t, {{ .Name | firstChar }}, default{{ .Name | title }})
 
-	t.Log({{ .Module | packageName | firstChar }}.RunAfter())
-	t.Log({{ .Module | packageName | firstChar }}.ToTask())
+	t.Log({{ .Name | firstChar }}.RunAfter())
+	t.Log({{ .Name | firstChar }}.ToTask())
 }
 `
