@@ -23,7 +23,7 @@ generate tao unit
 
 ```shell
 taogo help unit
-taogo unit -m github.com/taouniverse/tao-mysql -n tao-mysql -r gorm.io/gorm,gorm.io/driver/mysql
+taogo unit -m github.com/taouniverse/tao-mysql -r gorm.io/gorm,gorm.io/driver/mysql
 ```
 
 ## project
@@ -32,6 +32,6 @@ generate tao project
 
 ```shell
 taogo help project
-taogo project -m github.com/taouniverse/home -n home -r tao-gin
+taogo project -m github.com/taouniverse/home -r tao-gin
 ```
 
